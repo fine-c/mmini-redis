@@ -7,7 +7,9 @@ async fn main() {
     loop {
         // 第二项包含新连接的 IP 和端口.
         let (socket, _) = listener.accept().await.unwrap();
-        process(socket).await;
+        tokio::spawn(async move {
+            process(socket).await;
+        });
     }
 }
 
